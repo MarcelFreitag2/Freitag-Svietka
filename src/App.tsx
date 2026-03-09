@@ -1,14 +1,34 @@
 import './App.css'
-import type {SyntheticEvent} from "react";
-import './Logic.ts'
-import {handleImie, handleKapok, handleRegulamin} from "./Logic.ts";
-import { handleWybor } from "./Logic.ts";
-import { handleSuwak } from "./Logic.ts";
+import {type ChangeEvent, type SyntheticEvent, useState} from "react";
 
 function App() {
 
+    const [textImie, setTextImie] = useState("")
+    const [selectWypozy, setSelectWypozy] = useState("")
+    const [intSuwake, setIntSuwake] = useState("")
+
     function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
-    console.log("Submitting", event);
+        console.log("Submitting", event);
+    }
+
+    function handleImie(e: ChangeEvent<HTMLInputElement>) {
+        setTextImie(e.currentTarget.value)
+    }
+
+    function handleWybor(e: ChangeEvent<HTMLSelectElement>) {
+        setSelectWypozy(e.target.value)
+    }
+
+    function handleSuwak(e: ChangeEvent<HTMLInputElement>) {
+        setIntSuwake(e.currentTarget.value)
+    }
+
+    function handleKapok(e: ChangeEvent<HTMLInputElement>) {
+        console.log("handleSuwak", e);
+    }
+
+    function handleRegulamin(e: ChangeEvent<HTMLInputElement>) {
+        console.log("handleSuwak", e);
     }
 
 
@@ -19,13 +39,13 @@ function App() {
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
-                    value = ""
+                    value = {textImie}
                     onChange={handleImie}
                     placeholder={"Wprowadź imię"}
                 />
                 <br></br>
                 <select
-                    value = "Wypozyczenie"
+                    value = {selectWypozy}
                     onChange={handleWybor}
                 >
                 <option value="kajak">Kajak</option>
@@ -39,9 +59,11 @@ function App() {
                    min="1"
                    max="8"
                    step="0.5"
-                   value= ""
+                   value= {intSuwake}
                    onChange={handleSuwak}
                 ></input>
+                <text>{intSuwake}</text>
+
                 <br></br>
                     Opcjonalnie:<br/>
                     Kapok dla dziecka:
@@ -53,7 +75,6 @@ function App() {
                 Zaakceptuj Regulamin:
                 <input type={"checkbox"} name={"regulamin"} onChange={handleRegulamin}/>
                 <br/>
-                <button type="submit">Wylicz Cenę</button>
             </form>
         </div>
     </>
