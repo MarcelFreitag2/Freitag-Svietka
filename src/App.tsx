@@ -1,33 +1,61 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import type {SyntheticEvent} from "react";
+import './Logic.ts'
+import {handleImie, handleKapok, handleRegulamin} from "./Logic.ts";
+import { handleWybor } from "./Logic.ts";
+import { handleSuwak } from "./Logic.ts";
 
 function App() {
-  const [count, setCount] = useState(0)
+
+    function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
+    console.log("Submitting", event);
+    }
+
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+        <div>
+            <h1>Mazurska Przystań</h1>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    value = ""
+                    onChange={handleImie}
+                    placeholder={"Wprowadź imię"}
+                />
+                <br></br>
+                <select
+                    value = "Wypozyczenie"
+                    onChange={handleWybor}
+                >
+                <option value="kajak">Kajak</option>
+                <option value={"rowerwodny"}>Rower wodny</option>
+                <option value={"omega"}>Flagowa Omega</option>
+                </select>
+                <br></br>
+                Czas wypożyczenia(w godzinach):
+                <input
+                   type="range"
+                   min="1"
+                   max="8"
+                   step="0.5"
+                   value= ""
+                   onChange={handleSuwak}
+                ></input>
+                <br></br>
+                    Opcjonalnie:<br/>
+                    Kapok dla dziecka:
+                    <input type={"checkbox"} name={"kapok"} onChange={handleKapok} />
+                    <br/>
+                    Opieka Instruktora:
+                    <input type={"checkbox"} name={"instru"} onChange={handleKapok} />
+                <br></br>
+                Zaakceptuj Regulamin:
+                <input type={"checkbox"} name={"regulamin"} onChange={handleRegulamin}/>
+                <br/>
+                <button type="submit">Wylicz Cenę</button>
+            </form>
+        </div>
     </>
   )
 }
