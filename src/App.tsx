@@ -15,7 +15,7 @@ function App() {
   return (
     <>
         <div>
-            <h1>Mazurska Przystań</h1>
+            <h1>⚓Mazurska Przystań⚓</h1>
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
@@ -44,6 +44,7 @@ function App() {
                 ></input>
                 <br></br>
                     Opcjonalnie:<br/>
+                <br/>
                     Kapok dla dziecka:
                     <input type={"checkbox"} name={"kapok"} onChange={handleKapok} />
                     <br/>
