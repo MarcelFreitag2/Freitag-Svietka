@@ -14,7 +14,6 @@ function App() {
         setPaymentMethod(e.target.value);
         console.log(e.target.value)
     }
-
     const [paymentMethod, setPaymentMethod] = useState("blik");
 
   return (
