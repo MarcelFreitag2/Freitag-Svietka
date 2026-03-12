@@ -19,3 +19,4 @@ export function handleKapok(e: ChangeEvent<HTMLInputElement>) {
 export function handleRegulamin(e: ChangeEvent<HTMLInputElement>) {
     console.log("handleSuwak", e);
 }
+
