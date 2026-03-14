@@ -13,6 +13,7 @@ function App() {
     const [suma, setsuma] = useState<number>(refresh(selectWypozy, intSuwake, kapok, opieka))
     const [paymentMethod, setPaymentMethod] = useState("");
     const [disabled, setDisabled] = useState<boolean>(true)
+    const [wiadomosc, setWiadomosc] = useState("")
 
     function handleImie(e: ChangeEvent<HTMLInputElement>) {
         setTextImie(e.currentTarget.value)
@@ -31,10 +32,20 @@ function App() {
             setDisabled(true)
         }
     }
-
+    function sprawdzCzyPatent(wybor: string) {
+        if(wybor == "omega")
+        {
+            setWiadomosc("Potrzebny patent!")
+        }
+        else
+        {
+            setWiadomosc("")
+        }
+    }
     function handleWybor(e: ChangeEvent<HTMLSelectElement>) {
         setSelectWypozy(e.target.value)
         setsuma(refresh(e.currentTarget.value, intSuwake, kapok, opieka))
+        sprawdzCzyPatent(e.currentTarget.value)
     }
 
     function handleSuwak(e: ChangeEvent<HTMLInputElement>) {
@@ -132,13 +143,14 @@ function App() {
                     />
                     <br></br>
                     <select
-                        value = "Wypozyczenie"
+                        value = {selectWypozy}
                         onChange={handleWybor}
                     >
                         <option value="kajak">Kajak</option>
                         <option value={"rowerwodny"}>Rower wodny</option>
                         <option value={"omega"}>Flagowa Omega</option>
                     </select>
+                    <text id={"1"}>{wiadomosc}</text>
                     <br></br>
                     <h1>Czas wypożyczenia(w godzinach): {intSuwake}</h1>
                     <input type="range" min="0" max="8" step="1" value={intSuwake}
