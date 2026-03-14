@@ -1,0 +1,21 @@
+Index: src/index.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>body {\r\n    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\r\n    background: linear-gradient(to bottom, #92d1e1, #f8f7f7);\r\n    display: flex;\r\n    justify-content: center;\r\n    height: 940px;\r\n    margin: 0;\r\n    color: #02387c;\r\n    font-weight: 500;\r\n\r\n}\r\n#licz{\r\n    margin: 10px;\r\n    padding: 10px;\r\n    border-radius: 10px;\r\n    border: solid 2px #18263a;\r\n}\r\nh2 { /*naglowek*/\r\n    color: #00254e;\r\n    margin-bottom: 15px;\r\n    margin-top: 0px;\r\n    text-shadow: 2px 2px 4px rgba(0,0,0,0.4);\r\n    text-align: center;\r\n    font-size: 32px;\r\n\r\n    /*animacja*/\r\n    transform: translateY(-20px);\r\n    animation: fadeSlideUp 0.8s forwards;\r\n    animation-delay: 0.1s;\r\n}\r\n\r\n\r\nform {\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    gap: 5px;\r\n\r\n    background-color: #f8fafd;\r\n    padding: 34px;\r\n    border-radius: 10px;\r\n    width: 400px;\r\n    box-shadow: 0 0 10px rgba(0,0,0,0.4);\r\n}\r\n\r\ninput[type=\"text\"], select, input[type=\"range\"] {\r\n    padding: 10px;\r\n    font-size:17px;\r\n    border-radius: 10px;\r\n    border: 1px solid #0992da;\r\n    transition: 0.3s all ease;\r\n    width: 240px;\r\n}\r\n\r\ninput[type=\"checkbox\"] {\r\n    transform: scale(1.5);\r\n    cursor: pointer;\r\n}\r\n#check {\r\n    display: flex;\r\n    justify-content: space-evenly;\r\n    align-items: center;\r\n    width: 300px;\r\n    margin: 5px 10px;\r\n}\r\n\r\ninput[type=\"range\"] {\r\n    -webkit-appearance: none;\r\n    width: 100%;\r\n    background: linear-gradient(to right, #57b4e8, #196ba8);\r\n    height: 8px;\r\n    border-radius: 5px;\r\n    box-shadow: 0 5px 15px rgba(0,0,0,0.3);\r\n}\r\ninput[type=\"range\"]::-webkit-slider-thumb {\r\n    -webkit-appearance: none;\r\n    background: #e1e7f4;\r\n    width: 20px;\r\n    height: 20px;\r\n    border-radius: 45%;\r\n    cursor: pointer;\r\n    box-shadow: 0 2px 6px rgba(0,0,0,0.4);\r\n}\r\n\r\n\r\nbutton {\r\n    padding: 18px;\r\n    font-size: 18px;\r\n    color: #ffffff;\r\n    background: linear-gradient(to right, #0077b6, #1aa6d6);\r\n    border: none;\r\n    border-radius: 10px;\r\n    cursor: pointer;\r\n    box-shadow: 0 5px 15px rgba(0,0,0,0.4);\r\n}\r\nbutton:hover {\r\n    transform: translateY(-3px);\r\n    box-shadow: 0 8px 20px rgba(0,0,0,0.4);\r\n}\r\n\r\n\r\nh1 {\r\n    text-align: left;\r\n    font-size: 20px;\r\n    font-weight: 500;\r\n    color: #02387c;\r\n    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);\r\n    margin: 4px;\r\n\r\n}\r\n\r\n\r\n/*czesc animacji*/\r\nform {\r\n    opacity: 0;\r\n    transform: translateY(50px); /*presuniecie w dol*/\r\n    animation: fadeSlideUp 0.8s forwards;\r\n    animation-delay: 0.3s; /*opóźnienie*/\r\n}\r\nform input,\r\nform select,\r\nform button {\r\n    opacity: 0;\r\n    transform: translateY(30px);\r\n    animation: fadeSlideUp 0.5s forwards;\r\n}\r\n\r\nform input:nth-child(1) { animation-delay: 0.5s; }\r\nform select:nth-child(2) { animation-delay: 0.5s; }\r\nform button { animation-delay: 0.9s; }\r\n\r\n@keyframes fadeSlideUp {\r\n    to {\r\n        opacity: 1; /*widoczny*/\r\n        transform: translateY(0); /*wraca do normalnej pozycji*/\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/index.css b/src/index.css
+--- a/src/index.css	(revision 72d4e2e3c51572c20cd1dfac56af707212836f99)
++++ b/src/index.css	(date 1773354536190)
+@@ -98,6 +98,10 @@
+     box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+ }
+ 
++button:disabled {
++    background: rgba(121, 125, 128, 0.47);
++}
++
+ 
+ h1 {
+     text-align: left;
