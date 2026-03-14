@@ -1,35 +1,45 @@
 import './App.css'
 import {type ChangeEvent, type SyntheticEvent, useState} from "react";
-import './Kalkulator'
 import {refresh} from "./Kalkulator.ts";
 
 function App() {
 
     const [textImie, setTextImie] = useState("")
     const [selectWypozy, setSelectWypozy] = useState("kajak")
-    const [intSuwake, setIntSuwake] = useState("5")
+    const [intSuwake, setIntSuwake] = useState("1")
     const [kapok, setKapok] = useState("off")
     const [opieka, setOpika] = useState("off")
+    const [regulamin, setRegulamin] = useState("off")
     const [suma, setsuma] = useState<number>(refresh(selectWypozy, intSuwake, kapok, opieka))
-
-    function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
-        console.log("Submitting", event);
-    }
+    const [paymentMethod, setPaymentMethod] = useState("");
+    const [disabled, setDisabled] = useState<boolean>(true)
 
     function handleImie(e: ChangeEvent<HTMLInputElement>) {
         setTextImie(e.currentTarget.value)
+        if(e.currentTarget.value != "")
+        {
+            if(paymentMethod != "")
+            {
+                if(regulamin == "on")
+                {
+                    setDisabled(false)
+                }
+            }
+        }
+        else
+        {
+            setDisabled(true)
+        }
     }
 
     function handleWybor(e: ChangeEvent<HTMLSelectElement>) {
         setSelectWypozy(e.target.value)
-        const chwilowyWybor = e.currentTarget.value
-        setsuma(refresh(chwilowyWybor, intSuwake, kapok, opieka))
+        setsuma(refresh(e.currentTarget.value, intSuwake, kapok, opieka))
     }
 
     function handleSuwak(e: ChangeEvent<HTMLInputElement>) {
         setIntSuwake(e.currentTarget.value)
-        const chwilowySuwak = e.currentTarget.value
-        setsuma(refresh(selectWypozy, chwilowySuwak, kapok, opieka))
+        setsuma(refresh(selectWypozy, e.currentTarget.value, kapok, opieka))
     }
 
     function handleKapok() {
@@ -61,58 +71,142 @@ function App() {
         setsuma(refresh(selectWypozy, intSuwake, kapok, chwilowyOpieka))
     }
 
-    function handleRegulamin(e: ChangeEvent<HTMLInputElement>) {
-        console.log("handleSuwak", e);
+    function handleRegulamin() {
+        let chwilowyRegulamin = regulamin
+        if(regulamin == "off") {
+            setRegulamin("on")
+            chwilowyRegulamin = "on"
+            if(textImie != "")
+            {
+                if(paymentMethod != "")
+                {
+                    if(chwilowyRegulamin == "on")
+                    {
+                        setDisabled(false)
+                    }
+                }
+            }
+        }
+        else
+        {
+            setRegulamin("off")
+            chwilowyRegulamin = "off"
+            setDisabled(true)
+        }
     }
 
-  return (
-    <>
-        <div>
-            <h1>Mazurska Przystań</h1>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    value = {textImie}
-                    onChange={handleImie}
-                    placeholder={"Wprowadź imię"}
-                />
-                <br></br>
-                <select
-                    value = {selectWypozy}
-                    onChange={handleWybor}
-                >
-                <option value={"kajak"}>Kajak</option>
-                <option value={"rowerwodny"}>Rower wodny</option>
-                <option value={"omega"}>Flagowa Omega</option>
-                </select>
-                <br></br>
-                Czas wypożyczenia(w godzinach):
-                <input
-                   type="range"
-                   min="1"
-                   max="8"
-                   step="1"
-                   value= {intSuwake}
-                   onChange={handleSuwak}
-                ></input>
-                <text>{intSuwake}</text>
 
-                <br></br>
-                    Opcjonalnie:<br/>
-                    Kapok dla dziecka:
-                    <input type={"checkbox"} name={"kapok"} onChange={handleKapok}/>
+    function handlePaymentChange(e: ChangeEvent<HTMLInputElement>) {
+        setPaymentMethod(e.target.value);
+        console.log(e.target.value)
+        if(textImie != "")
+        {
+            if(e.currentTarget.value != "")
+            {
+                if(regulamin == "on")
+                {
+                    setDisabled(false)
+                }
+            }
+        }
+        else
+        {
+            setDisabled(true)
+        }
+    }
+
+    function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
+        console.log("Submitting", event);
+    }
+
+    return (
+        <>
+            <div>
+                <h2>⚓Mazurska Przystań⚓</h2>
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="text"
+                        value = {textImie}
+                        onChange={handleImie}
+                        placeholder={"Wprowadź imię"}
+                    />
+                    <br></br>
+                    <select
+                        value = "Wypozyczenie"
+                        onChange={handleWybor}
+                    >
+                        <option value="kajak">Kajak</option>
+                        <option value={"rowerwodny"}>Rower wodny</option>
+                        <option value={"omega"}>Flagowa Omega</option>
+                    </select>
+                    <br></br>
+                    <h1>Czas wypożyczenia(w godzinach): {intSuwake}</h1>
+                    <input type="range" min="0" max="8" step="1" value={intSuwake}
+                           onChange={handleSuwak} >
+                    </input>
+                    <br></br>
+                    Opcjonalnie:
                     <br/>
-                    Opieka Instruktora:
-                    <input type={"checkbox"} name={"instru"} onChange={handleOpieka} />
-                <br></br>
-                Zaakceptuj Regulamin:
-                <input type={"checkbox"} name={"regulamin"} onChange={handleRegulamin}/>
-                <br/>
-            </form>
-            {suma}
-        </div>
-    </>
-  )
+                    <div id={"check"}>
+                        <h1>Kapok dla dziecka:</h1>
+                        <input type={"checkbox"} name={"kapok"} onChange={handleKapok} />
+                    </div>
+                    <div id={"check"}>
+                        <h1>Opieka Instruktora:</h1>
+                        <input type={"checkbox"} name={"instru"} onChange={handleOpieka} />
+                    </div>
+                    <div id={"check"}>
+                        <h1>Zaakceptuj Regulamin:</h1>
+                        <input type={"checkbox"} name={"regulamin"} onChange={handleRegulamin} />
+                    </div>
+                    <br/>
+                    <div id="licz">Cena: {suma} zł
+                    </div>
+                    <br></br>
+                    <button type="submit" disabled={disabled}>Wylicz Cenę</button>
+
+                    <div>
+                        <p>Wybierz formę płatności:</p>
+                        <label>
+                            <input
+                                type="radio"
+                                name="payment"
+                                value="blik"
+                                checked={paymentMethod === "blik"}
+                                onChange={handlePaymentChange}
+                            />
+                            BLIK
+                        </label>
+
+
+                        <label style={{ marginLeft: "15px" }}>
+                            <input
+                                type="radio"
+                                name="payment"
+                                value="card"
+                                checked={paymentMethod === "card"}
+                                onChange={handlePaymentChange}
+                            />
+                            Karta
+                        </label>
+
+                        <label style={{ marginLeft: "15px" }}>
+                            <input
+                                type="radio"
+                                name="payment"
+                                value="cash"
+                                checked={paymentMethod === "cash"}
+                                onChange={handlePaymentChange}
+                            />
+                            Gotówka
+                        </label>
+                    </div>
+
+
+                </form>
+            </div>
+        </>
+    )
 }
 
 export default App
