@@ -126,8 +126,8 @@ function App() {
         }
     }
 
-    function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
-        console.log("Submitting", event);
+    function handleSubmit() {
+        alert("Dziękujemy!")
     }
 
     return (
