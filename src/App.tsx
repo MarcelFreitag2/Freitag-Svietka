@@ -133,8 +133,10 @@ function App() {
     return (
         <>
             <div>
-                <h2>⚓Mazurska Przystań⚓</h2>
+                <br></br>
+                <br></br>
                 <form onSubmit={handleSubmit}>
+                    <h2>⚓Mazurska Przystań⚓</h2>
                     <input
                         type="text"
                         value = {textImie}
